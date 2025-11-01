@@ -3,22 +3,35 @@
 // Dual-pane GUI with auto layout, context menu, basic file ops, and rename OSD
 //------------------------------------------------------------------------------
 
-#include "stdafx.h"          // Remove if you disabled PCH
 #include <xtl.h>
-#include <wchar.h>
 #include <vector>
 #include <algorithm>
-#include <stdarg.h>
-
 #include "XBApp.h"
 #include "XBFont.h"
 #include "XBInput.h"
 
-extern "C" {
+
+extern "C" 
+{
 	typedef struct _STRING { USHORT Length; USHORT MaximumLength; PCHAR Buffer; } STRING, *PSTRING;
 	LONG __stdcall IoCreateSymbolicLink(PSTRING SymbolicLinkName, PSTRING DeviceName);
 	LONG __stdcall IoDeleteSymbolicLink(PSTRING SymbolicLinkName);
+	void cdecl __CxxFrameHandler3() {}
+	EXCEPTION_DISPOSITION __cdecl _except_handler4(_EXCEPTION_RECORD* ExceptionRecord, void* EstablisherFrame, _CONTEXT* ContextRecord, PVOID DispatcherContext)
+	{
+		return ExceptionContinueExecution;
+	}
+	__declspec(naked) long _ftol2_sse(void) {
+		__asm {
+			sub     esp, 8
+			fistp   qword ptr[esp]
+			mov     eax, [esp]
+			add     esp, 8
+			ret
+		}
+	}
 }
+
 //#pragma comment(lib, "xboxkrnl.lib")
 
 #ifndef INVALID_FILE_ATTRIBUTES
